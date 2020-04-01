@@ -3,8 +3,8 @@ from oauth2client.service_account import ServiceAccountCredentials
 from pprint import pprint
 
 
-json_key='dnd-apr-2020-eaa3f3bf8046.json'
-file_name='dnd (Responses)'
+json_key='dnd-apr-2020-eaa3f3bf8046.json'#
+file_name='dnd (Responses)' #make sure you've shared client email with this doc
 username_col= 1#username column index in sheet (python style starting at 0)
 
 scope = [ 'https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
