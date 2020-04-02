@@ -19,21 +19,39 @@ if user_entry: #if user entry exists
 else:
     user_dict={}
 
+group={"caitlin":["Caitlin Bingham","Caitlin"],
+       "daniel":["Daniel Smalley","Daniel", "Dr. Smalley"],
+       "dylan":["Dylan","Dylan Barton"],
+       "mitch":["Mitchell","Mitchell Adams", "Mitch"],
+       "steve":["Stephen","Stephen Griffith","Steve"],
+       "manusha":["Manusha","Manusha Korimi"],
+       "kyle":["Kyle","Kyle Schvaneveldt"],
+       "keaton":["Keaton Shurilla","Keaton"],
+       "elias":["Elias", "Elias Guanuna"],
+       "ximena":["Ximena", "Ximena Briceno"],
+       "josh":["Josh","Josh Laney"],
+       "wes":["Wes","Wesley", "Wes Rodgers", "Wesley Rogers"]
+       }
 
-print("topics 1 " + topics[1] )
-print("topics 2 " + topics[2] )
-print("topics 3 " + topics[3] )
-print("topics 4 " + topics[4] )
-print("topics 5 " + topics[5] )
-print("topics 6 " + topics[6] )
-print("topics 7 " + topics[7] )
-print("topics 8 " + topics[8] )
-print("topics 9 " + topics[9] )
-print("topics 10 " + topics[10] )
-print("topics 11 " + topics[11] )
-print("topics 12 " + topics[12] )
 
- 
+    
+
+def find_images(username_entry):
+    heroes=[]
+    for handle,nicknames in group.items():
+        for elem in username_entry.split():
+            if elem in nicknames:
+                heroes.append(handle)
+    if not heroes:
+        heroes.append("missing")
+    image_objects=[]
+    for hero in heroes:
+        image_objects.append(html.Img(src=app.get_asset_url(hero + '.png')))
+   
+    return image_objects[0]
+
+
+
 
 
 def generate_sliders():
@@ -48,6 +66,7 @@ def generate_sliders():
     for entry in entries:
         
         name=entry[1]
+        print(name)
         quest=entry[2]
         start=entry[3]
         total_hrs=entry[4]
@@ -59,8 +78,10 @@ def generate_sliders():
         mile_3_hr=entry[11]
         end=entry[8]
 
- 
-
+        #image
+      
+        component_list.append(find_images(name))
+        print(component_list)
         component_list.append(html.Div(html.P("NAME: "+name)))
         component_list.append(html.Div(html.P("QUEST: "+quest)))
        
