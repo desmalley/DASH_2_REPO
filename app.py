@@ -1,26 +1,22 @@
 # -*- coding: utf-8 -*-
+#LIBRARIES
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
-
+import datetime
 from My_Goog_Pack import goog_funcs as goog
+
+
+#GLOBALS
 lol=goog.get_goog_data()
 topics=lol[0]
 entries=lol[1:]
-username="Smalley"
-user_entry=goog.find_user(username,lol)
 colors = {
     'background': '#111111',
     'text': '#111111'
 }
-
-if user_entry: #if user entry exists
-    user_dict=goog.convert_to_dict(user_entry,topics)
-else:
-    user_dict={}
-
 group={"caitlin":["Caitlin Bingham","Caitlin"],
-       "daniel":["Daniel Smalley","Daniel", "Dr. Smalley"],
+       "daniel":["Daniel Smalley","Daniel", "Dr. Smalley","Smalley"],
        "dylan":["Dylan","Dylan Barton"],
        "mitch":["Mitchell","Mitchell Adams", "Mitch"],
        "steve":["Stephen","Stephen Griffith","Steve"],
@@ -32,10 +28,38 @@ group={"caitlin":["Caitlin Bingham","Caitlin"],
        "josh":["Josh","Josh Laney"],
        "wes":["Wes","Wesley", "Wes Rodgers", "Wesley Rogers"]
        }
+today=datetime.datetime.now()
+
+#LOCAL FUNCTIONS
+#1 pointer group**********************************
+
+def pointer_calc(start, end):
+#Usage:
+    if  start and end:
+        start_list=start.split("/")
+        start_list_rearranged=[start_list[2],start_list[0],start_list[1]]
+        start_reformatted=datetime.datetime(int(start_list_rearranged[0]),int(start_list_rearranged[1]),int(start_list_rearranged[2]))
+      
+        end_list=end.split("/")
+        end_list_rearranged=[end_list[2],end_list[0],end_list[1]]
+        end_reformatted=datetime.datetime(int(end_list_rearranged[0]),int(end_list_rearranged[1]),int(end_list_rearranged[2]))
+        td_duration=end_reformatted-start_reformatted
+        
+        td_runway=end_reformatted-today
+        
+        duration=td_duration.days
+        
+        runway=td_runway.days
+        
+        pointer=int(10-(runway/duration)*10)
+        return pointer
+    else:
+        return 10 #make it look like they're done
 
 
-    
+#***********************************
 
+#2 dash group**********************************  
 def find_images(username_entry):
     heroes=[]
     for handle,nicknames in group.items():
@@ -49,10 +73,6 @@ def find_images(username_entry):
         image_objects.append(html.Img(src=app.get_asset_url(hero + '.png')))
    
     return image_objects[0]
-
-
-
-
 
 def generate_sliders():
     component_list=[]
@@ -78,10 +98,8 @@ def generate_sliders():
         mile_3_hr=entry[11]
         end=entry[8]
 
-        #image
-      
+     
         component_list.append(find_images(name))
-        print(component_list)
         component_list.append(html.Div(html.P("NAME: "+name)))
         component_list.append(html.Div(html.P("QUEST: "+quest)))
        
@@ -89,11 +107,17 @@ def generate_sliders():
             min=0,
             max=10,
             marks={0:start,3:mile_1,5:mile_2, 7:mile_3,10:end},
-            value=4,
+            value=pointer_calc(start,end),
             )
         component_list.append(comp)
         
     return component_list
+# dash group**********************************   
+    
+  
+    
+    
+    
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
