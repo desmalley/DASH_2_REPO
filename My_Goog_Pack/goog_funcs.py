@@ -17,7 +17,7 @@ def get_goog_data():
     wks= gc.open(file_name).sheet1 #gives first sheet of this file
     #pprint(wks.get_all_records())
     lol=[]
-    for row in range(len(wks.get_all_records())):
+    for row in range(len(wks.get_all_records())+1):
         #print(wks.row_values(row+1))
         lol.append(wks.row_values(row+1))
     return lol

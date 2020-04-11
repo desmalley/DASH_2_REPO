@@ -26,7 +26,8 @@ group={"caitlin":["Caitlin Bingham","Caitlin"],
        "elias":["Elias", "Elias Guanuna"],
        "ximena":["Ximena", "Ximena Briceno"],
        "josh":["Josh","Josh Laney"],
-       "wes":["Wes","Wesley", "Wes Rodgers", "Wesley Rogers"]
+       "wes":["Wes","Wesley", "Wes Rodgers", "Wesley Rogers"],
+       "luke":[ "Luke", "Luke Johnson"]
        }
 today=datetime.datetime.now()
 
@@ -114,10 +115,8 @@ def generate_sliders():
     return component_list
 # dash group**********************************   
     
-  
     
-    
-    
+        
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
