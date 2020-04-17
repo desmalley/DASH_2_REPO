@@ -11,6 +11,7 @@ from My_Goog_Pack import goog_funcs as goog
 lol=goog.get_goog_data()
 topics=lol[0]
 entries=lol[1:]
+max_label_length=30 #max length of slider labels
 colors = {
     'background': '#111111',
     'text': '#111111'
@@ -90,20 +91,25 @@ def generate_sliders():
         print(name)
         quest=entry[2]
         start=entry[3]
-        total_hrs=entry[4]
+        total_hrs=entry[4]             
+        
         mile_1=entry[5]
         mile_1_hr=entry[6]
-        mile_2=entry[7]
+        mile_2=entry[7]       
         mile_2_hr=entry[9]
         mile_3=entry[10]
         mile_3_hr=entry[11]
         end=entry[8]
-
-     
         component_list.append(find_images(name))
         component_list.append(html.Div(html.P("NAME: "+name)))
         component_list.append(html.Div(html.P("QUEST: "+quest)))
-       
+        if len(mile_1)+len(mile_2)+len(mile_3) > 3*max_label_length:
+            component_list.append(html.Div(html.P("milestone 1: {}".format(mile_1))))         
+            component_list.append(html.Div(html.P("milestone 2: {}".format(mile_2))))         
+            component_list.append(html.Div(html.P("milestone 3: {}".format(mile_3))))         
+            mile_1="milestone 1"
+            mile_2="milestone 2"
+            mile_3="milestone 3"      
         comp = dcc.Slider(
             min=0,
             max=10,
